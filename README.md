@@ -8,3 +8,10 @@ The analysis phase was carried on an excel espreadsheet in which I performed the
 
 
 # Methodology considerations
+During the project definition and the processing step I could get some useful conclusions such as:
+- There are not linear correlation between cloud fraction and NO2 concentrations (total and tropospheric).
+- As the study was performed over a European city, it is important to mention that the period from March to August show low NO2 concentration values for both years because there is no need to use gas-fueled heaters at offices and houses.
+
+
+# Future 
+- The script could be converted to a GEE app with few changes, basically creating a user interface and placing the widgets.
