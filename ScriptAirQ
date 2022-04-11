@@ -1,0 +1,75 @@
+var geometry = /* color: #0770ff */ee.Geometry.MultiPoint(
+        [[2.116632215975125, 41.39143105396738],
+         [2.2236208721312023, 41.43085420404109],
+         [2.1673159404905773, 41.37729128482953],
+         [2.17074916802964, 41.41231819007898],
+         [2.202616754278086, 41.40510831139901],
+         [2.103739801153086, 41.36389365670868]]);
+//Load the image collection
+var s5poff= ee.ImageCollection("COPERNICUS/S5P/NRTI/L3_NO2");
+//Date sliders
+var dateSlider1 = ui.DateSlider({
+  start: '2018-07-11',
+  value: '2019-01-01'
+});
+var dateSlider2 = ui.DateSlider({
+  start: '2018-07-11',
+  value: '2021-01-01'
+});
+//Button to display the mean mosaic and time series
+var runButton = ui.Button({
+  label: 'Run',
+  onClick: function(){
+    //getting the dates from the date sliders
+    var date1 = ee.Date(dateSlider1.getValue()[1]);
+    var date2 = ee.Date(dateSlider2.getValue()[1]);
+    //filter the image collection
+    var s5pFiltered = s5poff.filterDate(date1,date2).filterBounds(geometry);
+    //mosaic
+    var mosaicMean=s5pFiltered.mean().select('tropospheric_NO2_column_number_density');
+    // apply function to create mosaics for everyday (units: [mmol/cm2])
+    var dailyMosaic = mosaicDates(s5pFiltered);
+    //Display the mosaic
+    Map.addLayer(mosaicMean,{min:0,max:0.0002});
+    //Create the time series
+    var chartData = ui.Chart.image.series({
+      imageCollection: dailyMosaic.select('tropospheric_NO2_column_number_density'),
+      region: geometry,
+      scale: 1500
+    });
+    print(s5pFiltered);
+    print(chartData);
+  }
+});
+
+function mosaicDates(images){
+  var reducer = ee.Reducer.mean();
+  images = images.map(function(i){
+    return i.set({date:i.date().format('YYYY-MM-dd')}); //set date for all images
+  });
+  var time = 'date';
+  // make list of distinct dates to use in join
+  var distinct = images.distinct([time]); 
+  // define filter to match images w/ same dates
+  var filter = ee.Filter.equals({leftField: time, rightField: time}); 
+  // preserve all matches generated from join
+  var join = ee.Join.saveAll('matches'); 
+  //apply join, creates collection w/ a 'matches' property
+  var results = join.apply(distinct, images, filter); 
+  //need band names variable to rename bands b/c creating new collection removes names
+  var bandNames = ee.Image(images.first()).bandNames(); 
+  results = results.map(function(i) {
+    //create new image collection for each group of matches
+    var mosaic = ee.ImageCollection.fromImages(i.get('matches')) 
+      //sort, reduce collection to single image, rename bands
+      .sort('system:index').reduce(reducer).rename(bandNames); 
+    //produces a single image from each group of matches with date reassigned
+    return mosaic.multiply(1000).copyProperties(i).set(time, i.get(time)) 
+      .set('system:time_start', ee.Date(i.get(time)).millis());
+  });
+  //create a new image collection from all the new daily mosaics
+  return ee.ImageCollection(results); 
+}
+print(dateSlider1);
+print(dateSlider2);
+print(runButton);
