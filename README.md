@@ -6,6 +6,8 @@ I measured the changes in the Air Quality in Barcelona, Spain using TROPOMI data
 For extracting the Nitrogen Dioxide (NO2) I developed a script in GEE in which the user can select two dates for data filtering, after clicking the 'Run' button the script shows the mean mosaic for the range of dates and time series of NO2 concentrations in millimol per square cm [mmol/cm^2].
 The analysis phase was carried on an excel espreadsheet in which I performed the hypothesis tests on variances and medians where we can find a significant difference between both years beign the NO2 mean concentration higher than for 2020. 
 
+Link to the script: https://code.earthengine.google.com/5e33f2a675e8cc2586b0d028c451c93f?fbclid=IwAR1RMCO1Fow8Zs9S5C2LLHeMix1cSMcCrDXFILh3n1xixErxCMKiv9UzKy0
+
 
 # Methodology considerations
 During the project definition and the processing step I could get some useful conclusions such as:
