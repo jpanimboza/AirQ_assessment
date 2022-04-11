@@ -17,3 +17,7 @@ During the project definition and the processing step I could get some useful co
 
 # Future 
 - The script could be converted to a GEE app with few changes, basically creating a user interface and placing the widgets.
+
+# Reference: 
+https://doi.org/10.1016/j.scitotenv.2021.146380
+Querol, X., Massagué, J., Alastuey, A., Moreno, T., Gangoiti, G., Mantilla, E., … Cornide, M. J. (2021). Lessons from the COVID-19 air pollution decrease in Spain: Now what? Science of The Total Environment, 779, 146380. doi:10.1016/j.scitotenv.2021.146380 
