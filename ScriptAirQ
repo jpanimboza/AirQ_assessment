@@ -10,7 +10,7 @@ var s5poff= ee.ImageCollection("COPERNICUS/S5P/NRTI/L3_NO2");
 //Date sliders
 var dateSlider1 = ui.DateSlider({
   start: '2018-07-11',
-  value: '2019-01-01'
+  value: '2019-01-01',
 });
 var dateSlider2 = ui.DateSlider({
   start: '2018-07-11',
