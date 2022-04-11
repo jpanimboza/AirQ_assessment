@@ -13,6 +13,7 @@ Link to the script: https://code.earthengine.google.com/5e33f2a675e8cc2586b0d028
 During the project definition and the processing step I could get some useful conclusions such as:
 - There are not linear correlation between cloud fraction and NO2 concentrations (total and tropospheric).
 - As the study was performed over a European city, it is important to mention that the period from March to August show low NO2 concentration values for both years because there is no need to use gas-fueled heaters at offices and houses.
+- The NO2 concentrations falls every weekend but this conclusion should be studied in depth in the future.
 
 
 # Future 
