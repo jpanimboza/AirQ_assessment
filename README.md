@@ -1,4 +1,4 @@
-# AirQ_assessment
+# Air Quality Assessment
 
 This project was developed for BlueSky Analytics
 
